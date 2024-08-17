@@ -1,6 +1,6 @@
 {
     "crons": [{
-      "path": "/api/cron",
+      "path": "/nextjs-with-adyen1//src/pages/api/cron.js",
       "schedule": "* * * * *"
     }]
   }
