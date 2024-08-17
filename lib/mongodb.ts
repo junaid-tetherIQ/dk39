@@ -1,5 +1,13 @@
-// lib/mongodb.ts
 import mongoose from 'mongoose';
+
+// Extend global namespace for this file
+declare global {
+  namespace NodeJS {
+    interface Global {
+      mongoose?: { conn: any; promise: Promise<any> | null };
+    }
+  }
+}
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://iamnobra:ZF5fGeVXM6jZIhHU@cluster0.q3ilk49.mongodb.net/travel?retryWrites=true&w=majority&appName=Cluster0';
 

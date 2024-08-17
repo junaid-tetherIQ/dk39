@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Inter } from 'next/font/google';
-import { PaymentContainer } from "@/components/Checkout";
-
+import { PaymentContainer } from '../components/Checkout';
 const inter = Inter({ subsets: ['latin'] });
 
 interface ProductData {
