@@ -48,9 +48,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       reference: randomUUID(),
       returnUrl: `http://localhost.com`,
       shopperReference: 'unique-shopper-id',// Replace with unique ID for the customer
-      recurringProcessingModel:'Subscription' ,// Set up a subscription
+      recurringProcessingModel:Subscription,// Set up a subscription
       enableRecurring: true,
-      shopperInteraction: 'Ecommerce',
+      shopperInteraction: Ecommerce,
       allowedPaymentMethods:['scheme']
     });
     res.status(200).json({
