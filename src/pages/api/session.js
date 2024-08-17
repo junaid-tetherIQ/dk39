@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import Cors from 'cors';
 import { randomUUID } from 'crypto';
 import { CheckoutAPI, Client, Config } from '@adyen/api-library';
-import Cors from 'cors';
+
 // Initialize CORS middleware
 const cors = Cors({
   methods: ['GET', 'HEAD', 'POST'],
@@ -10,12 +10,12 @@ const cors = Cors({
 });
 
 // Helper method to wait for a middleware to execute before continuing
-function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) {
+function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
+    fn(req, res, (result) => {
       if (result instanceof Error) {
         return reject(result);
-      } 
+      }
       return resolve(result);
     });
   });
@@ -28,16 +28,11 @@ const config = new Config({
 });
 
 const client = new Client({ config });
-const   checkout = new CheckoutAPI(client);
+const checkout = new CheckoutAPI(client);
 
 const merchantAccount = 'AdyenAccount781ECOM';
 
-export type SessionData = {
-  id: string;
-  sessionData: string;
-};
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse<SessionData>) {
+export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   try {
@@ -46,12 +41,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       countryCode: 'NL',
       merchantAccount,
       reference: randomUUID(),
-      returnUrl: `http://localhost.com`,
-      shopperReference: 'unique-shopper-id',// Replace with unique ID for the customer
-      recurringProcessingModel:Subscription,// Set up a subscription
+      returnUrl: 'http://localhost.com',
+      shopperReference: 'unique-shopper-id', // Replace with unique ID for the customer
+      recurringProcessingModel: 'Subscription', // Set up a subscription
       enableRecurring: true,
-      shopperInteraction: Ecommerce,
-      allowedPaymentMethods:['scheme']
+      shopperInteraction: 'Ecommerce',
+      allowedPaymentMethods: ['scheme'],
     });
     res.status(200).json({
       id: response.id,
@@ -59,6 +54,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json;
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }
