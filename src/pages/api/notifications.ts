@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log("Unexpected eventCode: " + notification.eventCode);
       }
 
-      res.status(202).send(''); // Send a 202 response with an empty body
+      res.status(202).send(''); 
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
