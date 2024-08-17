@@ -1,14 +1,5 @@
 import mongoose from 'mongoose';
 
-// Extend global namespace for this file
-declare global {
-  namespace NodeJS {
-    interface Global {
-      mongoose?: { conn: any; promise: Promise<any> | null };
-    }
-  }
-}
-
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://iamnobra:ZF5fGeVXM6jZIhHU@cluster0.q3ilk49.mongodb.net/travel?retryWrites=true&w=majority&appName=Cluster0';
 
 if (!MONGODB_URI) {
@@ -22,10 +13,13 @@ if (!MONGODB_URI) {
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-let cached = global.mongoose;
+
+// Type assertion to define global.mongoose
+const globalAny = global as any;
+let cached = globalAny.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = globalAny.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {
