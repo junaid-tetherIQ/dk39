@@ -18,7 +18,7 @@ export default function Home() {
     const [productData, setProductData] = useState<ProductData | null>(null);
 
     useEffect(() => {
-        if (title && image && heading && pixel) {
+        if (title || image || heading || pixel) {
             setProductData({
                 title: title as string,
                 image: image as string,
