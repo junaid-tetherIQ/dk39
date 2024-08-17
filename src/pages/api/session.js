@@ -22,15 +22,15 @@ function runMiddleware(req, res, fn) {
 }
 
 const config = new Config({
-  apiKey: 'AQExhmfxLIPJbhdBw0m/n3Q5qf3VaY9UCJ1rW2ZZ03a/yT4aysS8D8j2QjIr8ogWgG0CJhDBXVsNvuR83LVYjEgiTGAH-lH6fZNoGu9XFECxC4eHV6ODLfQntolmOkGUx8MZG2vs=-i1i:2:WW9APwe;V2VLf',
-  environment: 'TEST',
+  apiKey: 'AQE0hmfxL4nPbhNFw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlecpLqryXYi+ZmXlAXZUqbhDBXVsNvuR83LVYjEgiTGAH-6HFhCuTsmvPYE/3r8WsfdmeuJmVDGcgL8o0RHIrQW4Q=-i1ix%s;F4}^(4N7=R7$',
+  environment: 'LIVE',
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
 
-const client = new Client({ config });
+const client = new Client({ config,liveEndpointUrlPrefix:'c8596343894f027d-LascauxEnterprises' });
 const checkout = new CheckoutAPI(client);
 
-const merchantAccount = 'AdyenAccount781ECOM';
+const merchantAccount = 'LuxoriaLTD';
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       countryCode: 'NL',
       merchantAccount,
       reference: randomUUID(),
-      returnUrl: 'http://localhost.com',
+      returnUrl: 'http://localhost.co',
       shopperReference: 'unique-shopper-id', // Replace with unique ID for the customer
       recurringProcessingModel: 'Subscription', // Set up a subscription
       enableRecurring: true,
