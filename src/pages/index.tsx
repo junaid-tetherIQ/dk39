@@ -34,7 +34,7 @@ export default function Home() {
         // Simulating a loading delay
         const timer = setTimeout(() => {
             setLoading(false); // Set loading to false once the component is ready
-        }, 1000); // Replace with the actual loading time if necessary
+        }, 5000); // Replace with the actual loading time if necessary
 
         return () => clearTimeout(timer);
     }, []);
