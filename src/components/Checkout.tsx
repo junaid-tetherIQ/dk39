@@ -93,7 +93,9 @@ const Checkout = () => {
   }, [session, router]);
 
   if (error) return <div>{error}</div>;
-  if (loading) return <div>Loading...</div>;
+  if (loading) return  <div className="flex justify-center items-center h-full">
+  <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-500"></div>
+</div>;
 
   return (
     <div className="payment-container">
