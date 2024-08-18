@@ -34,7 +34,7 @@ export default function Home() {
                 <div className="w-full md:w-[calc(100%-400px)] flex flex-col justify-center">
                     <PaymentContainer />
                 </div>
-
+                {productData && (
                 <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-6 overflow-y-auto">
                     <h2 className="text-lg font-medium text-gray-800">Order Summary</h2>
                     <div className="flex flex-col md:flex-row items-center justify-between mt-4 space-y-4 md:space-y-0">
@@ -65,6 +65,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+            )}
             </div>
         </div>
     );
