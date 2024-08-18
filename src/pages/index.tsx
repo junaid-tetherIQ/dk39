@@ -37,7 +37,7 @@ export default function Home() {
                 </div>
                 {productData && (
                 <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-6 overflow-y-auto">
-                    <h2 className="text-lg font-medium text-gray-800">Order Summary</h2>
+                    <h2 className="text-lg font-medium text-gray-800">Récapitulatif de la commande</h2>
                     <div className="flex flex-col md:flex-row items-center justify-between mt-4 space-y-4 md:space-y-0">
                         <div className="flex items-center">
                             <img
@@ -57,11 +57,11 @@ export default function Home() {
 
                     <div className="border-t mt-6 pt-4">
                         <div className="flex justify-between text-sm font-medium text-gray-800">
-                            <p>Subtotal/Unit</p>
+                            <p>Sous-total/unité</p>
                             <p>£9.99</p>
                         </div>
                         <div className="flex justify-between mt-2 text-sm font-medium text-gray-800">
-                            <p>Shipping</p>
+                            <p>Expédition</p>
                             <p className="text-indigo-600">Free</p>
                         </div>
                     </div>
