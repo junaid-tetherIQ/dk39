@@ -48,17 +48,19 @@ export default function Home() {
                             <div className="ml-4">
                                 <div className="flex items-center">
                                     <span className="text-sm bg-indigo-200 text-indigo-600 font-medium py-1 px-2 rounded-full"></span>
-                                    <h3 className="ml-2 text-base font-semibold text-gray-800">{productData.title}</h3>
+                                    <h3 className="ml-2 text-base font-semibold text-gray-800 break-words">
+                                    {productData.title}
+                                    </h3>
                                 </div>
                             </div>
                         </div>
-                        <p className="text-base font-medium text-indigo-600 md:text-right">£9.99</p>
+                        <p className="text-base font-medium text-indigo-600 md:text-right">€9.99</p>
                     </div>
 
                     <div className="border-t mt-6 pt-4">
                         <div className="flex justify-between text-sm font-medium text-gray-800">
                             <p>Sous-total/unité</p>
-                            <p>£9.99</p>
+                            <p>€9.99</p>
                         </div>
                         <div className="flex justify-between mt-2 text-sm font-medium text-gray-800">
                             <p>Expédition</p>
