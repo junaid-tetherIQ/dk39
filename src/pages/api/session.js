@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await checkout.sessions({
-      amount: { currency: 'EUR', value: 1 }, // Initial payment of 9.99 EUR
+      amount: { currency: 'EUR', value: 999 }, // Initial payment of 9.99 EUR
       countryCode: 'NL',
       merchantAccount,
       reference: randomUUID(),
