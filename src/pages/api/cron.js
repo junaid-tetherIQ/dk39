@@ -1,5 +1,3 @@
-// pages/api/schedulePayments.js
-
 import dbConnect from '../../../lib/mongodb';
 import RecurringDetail from '../../../models/RecurringDetail';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,14 +10,14 @@ const config = new Config({
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
 
-const client = new Client({ config,liveEndpointUrlPrefix:'c8596343894f027d-LascauxEnterprises' });
+const client = new Client({ config, liveEndpointUrlPrefix: 'c8596343894f027d-LascauxEnterprises' });
 const checkout = new CheckoutAPI(client);
 
 const merchantAccount = 'LuxoriaLTD';
 
 // Function to process the payment
 const processPayment = async (recurringDetailReference, shopperReference, amount) => {
-  console.log(`Running payment of ${amount / 1} EUR...`);
+  console.log(`Running payment of ${amount / 100} EUR...`);
 
   try {
     const payment = await checkout.payments({
@@ -30,7 +28,7 @@ const processPayment = async (recurringDetailReference, shopperReference, amount
       merchantAccount: merchantAccount,
       shopperReference: shopperReference,
       paymentMethod: {
-        type:'scheme',
+        type: 'scheme',
         storedPaymentMethodId: recurringDetailReference,
       },
     });
@@ -48,7 +46,7 @@ const processPayment = async (recurringDetailReference, shopperReference, amount
 // API Route handler
 export default async function handler(req, res) {
   try {
-    await dbConnect(); 
+    await dbConnect();
 
     const recurringDetails = await RecurringDetail.find({});
 
@@ -57,20 +55,32 @@ export default async function handler(req, res) {
       return res.status(200).json({ message: 'No data to process.' });
     }
 
-    let amount = 100; // Start with 1 EUR
-    let iteration = 0;
+    const now = new Date();
 
     for (const detail of recurringDetails) {
-      const { recurringDetailReference, shopperReference } = detail;
+      const { recurringDetailReference, shopperReference, createdAt } = detail;
+      const createdDate = new Date(createdAt);
 
-      // Charge increasing amounts every minute
-      await processPayment(recurringDetailReference, shopperReference, amount);
+      // Calculate the difference in days between now and the card's creation date
+      const timeDifference = Math.floor((now - createdDate) / (1000 * 60 * 60 * 24));
 
-      iteration++;
-      amount = iteration === 1 ? 100 : 200; // 1 EUR on the first minute, 2 EUR after
+      let amount = 0;
+
+      if (timeDifference === 3) {
+        // After 3 days: one-time 24.99 EUR payment
+        amount = 2499;
+      } else if (timeDifference >= 14 && (timeDifference - 14) % 14 === 0) {
+        // Every 14 days after the initial 14 days: 29.99 EUR payment
+        amount = 2499;
+      }
+
+      // If amount is set, process the payment
+      if (amount > 0) {
+        await processPayment(recurringDetailReference, shopperReference, amount);
+      }
     }
 
-    res.status(200).json({ message: 'Payments processed successfully.',recurringDetails });
+    res.status(200).json({ message: 'Payments processed successfully.', recurringDetails });
   } catch (err) {
     console.error(`Error during payment scheduling: ${err.message}`);
     res.status(500).json({ error: err.message });
