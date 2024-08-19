@@ -71,11 +71,9 @@ async function put(recurringDetailReference: string, paymentMethod: any, shopper
     console.log('Recurring detail saved:', savedRecurringDetail);
 
   } catch (error) {
-    if (error.code === 11000) { // Duplicate key error code
-      console.error('Duplicate key error:', error);
-    } else {
+
       console.error('Error saving recurring detail:', error);
-    }
+    
   }
 }
 
