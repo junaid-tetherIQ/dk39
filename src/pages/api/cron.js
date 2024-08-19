@@ -19,7 +19,7 @@ const merchantAccount = 'LuxoriaLTD';
 
 // Function to process the payment
 const processPayment = async (recurringDetailReference, shopperReference, amount) => {
-  console.log(`Running payment of ${amount / 100} EUR...`);
+  console.log(`Running payment of ${amount / 1} EUR...`);
 
   try {
     const payment = await checkout.PaymentsApi.payments({
