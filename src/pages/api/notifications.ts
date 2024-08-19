@@ -3,7 +3,7 @@ import { hmacValidator } from '@adyen/api-library';
 import dbConnect from '../../../lib/mongodb';
 import RecurringDetail from '../../../models/RecurringDetail';
 
-const hmacKey = '9075A31A31A62100581C26F862B61EE45926FBB805C8FBFF131E0368AE994FF1';
+const hmacKey = '05E8CE9876B29D7F9928C65E1126F0BCB38EDCA586608CE8111FC890B4F3E351';
 const validator = new hmacValidator();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
