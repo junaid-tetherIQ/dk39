@@ -3,7 +3,7 @@ import { hmacValidator } from '@adyen/api-library';
 import dbConnect from '../../../lib/mongodb';
 import RecurringDetail from '../../../models/RecurringDetail';
 
-const hmacKey = '9263D3C96E0E6EC3F3948C6DE2510DEB7CC2D727462B3FAED8C1E9EFA7C1F3F5';
+const hmacKey = '9075A31A31A62100581C26F862B61EE45926FBB805C8FBFF131E0368AE994FF1';
 const validator = new hmacValidator();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const shopperReference = notification.additionalData['recurring.shopperReference'];
 
-      if (notification.eventCode === "RECURRING_CONTRACT" && shopperReference) {
+
         const recurringDetailReference = notification.additionalData['recurring.recurringDetailReference'];
         const paymentMethod = notification.paymentMethod;
 
@@ -35,12 +35,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           " paymentMethod:" + paymentMethod);
 
         await put(recurringDetailReference, paymentMethod, shopperReference);
-      } else if (notification.eventCode === "AUTHORISATION") {
         console.log("Payment authorized - pspReference:" + notification.pspReference +
           " eventCode:" + notification.eventCode);
-      } else {
+
         console.log("Unexpected eventCode: " + notification.eventCode);
-      }
 
       res.status(202).send(''); // Send a 202 response with an empty body
     } catch (error) {
@@ -56,6 +54,13 @@ async function put(recurringDetailReference: string, paymentMethod: any, shopper
   try {
     await dbConnect(); // Establish a database connection
 
+    const existingDetail = await RecurringDetail.findOne({ recurringDetailReference });
+
+    if (existingDetail) {
+      console.log('Recurring detail already exists:', existingDetail);
+      return; // Optionally, handle the case where the detail already exists
+    }
+
     const newRecurringDetail = new RecurringDetail({
       recurringDetailReference,
       paymentMethod,
@@ -66,6 +71,11 @@ async function put(recurringDetailReference: string, paymentMethod: any, shopper
     console.log('Recurring detail saved:', savedRecurringDetail);
 
   } catch (error) {
-    console.error('Error saving recurring detail:', error);
+    if (error.code === 11000) { // Duplicate key error code
+      console.error('Duplicate key error:', error);
+    } else {
+      console.error('Error saving recurring detail:', error);
+    }
   }
 }
+
