@@ -22,15 +22,15 @@ function runMiddleware(req, res, fn) {
 }
 
 const config = new Config({
-  apiKey: 'AQExhmfxLIPJbhdBw0m/n3Q5qf3VaY9UCJ1rW2ZZ03a/yT4aysS8D8j2QjIr8ogWgG0CJhDBXVsNvuR83LVYjEgiTGAH-2P0b943Uf/xojI7c6nGs/56sdVej77uXaD4qzaS6fmc=-i1i}kaz<.VV5d2T[r.R',
-  environment: 'TEST',
+  apiKey: 'AQE0hmfxL4nPbhNFw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlecpLqryXYi+ZmXlAXZUqbhDBXVsNvuR83LVYjEgiTGAH-6HFhCuTsmvPYE/3r8WsfdmeuJmVDGcgL8o0RHIrQW4Q=-i1ix%s;F4}^(4N7=R7$',
+  environment: 'LIVE',
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
 
-const client = new Client({ config});
+const client = new Client({ config,liveEndpointUrlPrefix:'c8596343894f027d-LascauxEnterprises' });
 const checkout = new CheckoutAPI(client);
 
-const merchantAccount = 'AdyenAccount781ECOM';
+const merchantAccount = 'LuxoriaLTD';
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
