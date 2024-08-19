@@ -8,7 +8,7 @@ import { CheckoutAPI, Client, Config } from '@adyen/api-library';
 // Adyen API configuration
 const config = new Config({
   apiKey: process.env.ADYEN_API_KEY, // Use environment variable for security
-  environment: 'TEST',
+  environment: 'LIVE',
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
 
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
       amount = iteration === 1 ? 100 : 200; // 1 EUR on the first minute, 2 EUR after
     }
 
-    res.status(200).json({ message: 'Payments processed successfully.' });
+    res.status(200).json({ message: 'Payments processed successfully.',recurringDetails });
   } catch (err) {
     console.error(`Error during payment scheduling: ${err.message}`);
     res.status(500).json({ error: err.message });
