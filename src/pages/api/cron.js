@@ -22,7 +22,7 @@ const processPayment = async (recurringDetailReference, shopperReference, amount
   console.log(`Running payment of ${amount / 1} EUR...`);
 
   try {
-    const payment = await checkout.PaymentsApi.payments({
+    const payment = await checkout.payments({
       amount: { currency: 'EUR', value: amount },
       reference: uuidv4(),
       shopperInteraction: 'ContAuth',
@@ -30,6 +30,7 @@ const processPayment = async (recurringDetailReference, shopperReference, amount
       merchantAccount: merchantAccount,
       shopperReference: shopperReference,
       paymentMethod: {
+        type:'scheme',
         storedPaymentMethodId: recurringDetailReference,
       },
     });
