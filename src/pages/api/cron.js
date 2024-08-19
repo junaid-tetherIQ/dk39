@@ -15,7 +15,7 @@ const config = new Config({
 const client = new Client({ config });
 const checkout = new CheckoutAPI(client);
 
-const merchantAccount = 'AdyenAccount781ECOM';
+const merchantAccount = 'LuxoriaLTD';
 
 // Function to process the payment
 const processPayment = async (recurringDetailReference, shopperReference, amount) => {
