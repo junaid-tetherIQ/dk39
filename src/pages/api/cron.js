@@ -5,15 +5,15 @@ import { CheckoutAPI, Client, Config } from '@adyen/api-library';
 
 // Adyen API configuration
 const config = new Config({
-  apiKey: process.env.NEXT_PUBLIC_API,
+  apiKey: 'AQE0hmfxL4nPbhNFw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlecpLqryXYi+ZmXlAXZUqbhDBXVsNvuR83LVYjEgiTGAH-6HFhCuTsmvPYE/3r8WsfdmeuJmVDGcgL8o0RHIrQW4Q=-i1ix%s;F4}^(4N7=R7$',
   environment: 'LIVE',
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
 
-const client = new Client({ config, liveEndpointUrlPrefix: process.env.NEXT_PUBLIC_PREFIX });
+const client = new Client({ config, liveEndpointUrlPrefix: 'c8596343894f027d-LascauxEnterprises' });
 const checkout = new CheckoutAPI(client);
 
-const merchantAccount = process.env.NEXT_PUBLIC_ACCOUNT
+const merchantAccount = 'LuxoriaLTD';
 
 // Function to process the payment
 const processPayment = async (recurringDetailReference, shopperReference, amount) => {

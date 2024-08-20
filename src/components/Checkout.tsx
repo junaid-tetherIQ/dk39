@@ -56,7 +56,7 @@ const Checkout = () => {
 
     const config = {
       environment: 'LIVE',
-      clientKey: process.env.NEXT_PUBLIC_CLIENT, 
+      clientKey: 'live_LWUZ7PXL6FHYVIIGQTDSCYJ6E4UVEJH4', 
       locale:'fr-FR'// Replace with your actual Adyen test client key
     };
 
