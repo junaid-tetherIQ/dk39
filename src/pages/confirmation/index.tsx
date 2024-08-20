@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useEffect } from 'react';
-const page = () => {
+const Page = () => {
   useEffect(() => {
     // Create the script for Meta Pixel Code
     const metaPixelScript = document.createElement('script');
@@ -64,4 +64,4 @@ const page = () => {
 
 
 
-export default page
+export default Page
