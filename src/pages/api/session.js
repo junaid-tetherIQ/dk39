@@ -5,7 +5,7 @@ import { CheckoutAPI, Client, Config } from '@adyen/api-library';
 // Initialize CORS middleware
 const cors = Cors({
   methods: ['GET', 'HEAD', 'POST'],
-  origin: 'http://localhost:30000', // Replace with your frontend URL
+  origin: 'http://localhost:3000', // Replace with your frontend URL
   credentials: true,
 });
 
@@ -21,10 +21,9 @@ function runMiddleware(req, res, fn) {
   });
 }
 
-// Adyen API configuration
 const config = new Config({
   apiKey: process.env.NEXT_PUBLIC_API,
-  checkoutEndpoint: 'https://checkout-live.adyen.com/v68', // Use the correct endpoint based on your environment
+  checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
 
 const client = new Client({
@@ -33,6 +32,7 @@ const client = new Client({
 });
 
 const checkout = new CheckoutAPI(client);
+
 const merchantAccount = process.env.NEXT_PUBLIC_ACCOUNT;
 
 export default async function handler(req, res) {
@@ -43,23 +43,21 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Destructure the request body to get user details including address
     const { address, shopperReference } = req.body;
 
-    // Prepare the payment session request with the billing address included
     const response = await checkout.sessions({
-      amount: { currency: 'EUR', value: 999 }, // Payment amount of 9.99 EUR
-      countryCode: 'NL', // Country code
+      amount: { currency: 'EUR', value: 999 }, // Initial payment of 9.99 EUR
+      countryCode: 'NL',
       merchantAccount,
-      reference: randomUUID(), // Unique reference for this transaction
-      returnUrl: 'http://localhost.co', // Replace with your actual return URL
-      shopperReference, // Replace with unique ID for the customer
+      reference: randomUUID(),
+      returnUrl: 'http://localhost:3000/confirmation', // Replace with your actual return URL
+      shopperReference, // Unique ID for the customer
       recurringProcessingModel: 'Subscription', // Set up a subscription
-      enableRecurring: true, // Enable recurring payments
-      shopperInteraction: 'Ecommerce', // Specify the type of interaction
-      allowedPaymentMethods: ['scheme'], // Allow only card payments
-
-      // Billing address details
+      enableRecurring: true,
+      shopperInteraction: 'Ecommerce',
+      allowedPaymentMethods: ['scheme'],
+      
+      // Include billing address in the session request
       billingAddress: {
         street: address.street,
         postalCode: address.postalCode,
@@ -69,7 +67,6 @@ export default async function handler(req, res) {
       },
     });
 
-    // Return the session ID and session data
     res.status(200).json({
       id: response.id,
       sessionData: response.sessionData ?? '',
