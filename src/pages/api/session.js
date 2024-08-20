@@ -21,39 +21,61 @@ function runMiddleware(req, res, fn) {
   });
 }
 
+// Adyen API configuration
 const config = new Config({
-  apiKey: 'AQE0hmfxL4nPbhNFw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlecpLqryXYi+ZmXlAXZUqbhDBXVsNvuR83LVYjEgiTGAH-6HFhCuTsmvPYE/3r8WsfdmeuJmVDGcgL8o0RHIrQW4Q=-i1ix%s;F4}^(4N7=R7$',
-  environment: 'LIVE',
-  checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
+  apiKey: process.env.NEXT_PUBLIC_API,
+  checkoutEndpoint: 'https://checkout-live.adyen.com/v68', // Use the correct endpoint based on your environment
 });
 
-const client = new Client({ config,liveEndpointUrlPrefix:'c8596343894f027d-LascauxEnterprises' });
-const checkout = new CheckoutAPI(client);
+const client = new Client({
+  config,
+  liveEndpointUrlPrefix: process.env.NEXT_PUBLIC_PREFIX,
+});
 
-const merchantAccount = 'LuxoriaLTD';
+const checkout = new CheckoutAPI(client);
+const merchantAccount = process.env.NEXT_PUBLIC_ACCOUNT;
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
   try {
+    // Destructure the request body to get user details including address
+    const { address, shopperReference } = req.body;
+
+    // Prepare the payment session request with the billing address included
     const response = await checkout.sessions({
-      amount: { currency: 'EUR', value: 999 }, // Initial payment of 9.99 EUR
-      countryCode: 'NL',
+      amount: { currency: 'EUR', value: 999 }, // Payment amount of 9.99 EUR
+      countryCode: 'NL', // Country code
       merchantAccount,
-      reference: randomUUID(),
-      returnUrl: 'http://localhost.co',
-      shopperReference: 'unique-shopper-id', // Replace with unique ID for the customer
+      reference: randomUUID(), // Unique reference for this transaction
+      returnUrl: 'http://localhost.co', // Replace with your actual return URL
+      shopperReference, // Replace with unique ID for the customer
       recurringProcessingModel: 'Subscription', // Set up a subscription
-      enableRecurring: true,
-      shopperInteraction: 'Ecommerce',
-      allowedPaymentMethods: ['scheme'],
+      enableRecurring: true, // Enable recurring payments
+      shopperInteraction: 'Ecommerce', // Specify the type of interaction
+      allowedPaymentMethods: ['scheme'], // Allow only card payments
+
+      // Billing address details
+      billingAddress: {
+        street: address.street,
+        postalCode: address.postalCode,
+        city: address.city,
+        houseNumberOrName: address.houseNumberOrName,
+        country: address.country,
+      },
     });
+
+    // Return the session ID and session data
     res.status(200).json({
       id: response.id,
       sessionData: response.sessionData ?? '',
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error processing payment:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
