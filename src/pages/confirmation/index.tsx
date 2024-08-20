@@ -1,5 +1,50 @@
+'use client'
 import React from 'react'
+import { useEffect } from 'react';
 const page = () => {
+  useEffect(() => {
+    // Create the script for Meta Pixel Code
+    const metaPixelScript = document.createElement('script');
+    metaPixelScript.async = true;
+    metaPixelScript.innerHTML = `
+      !function(f,b,e,v,n,t,s) {
+        if(f.fbq) return;
+        n = f.fbq = function() {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if(!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1492043641437442');
+      fbq('track', 'PageView');
+    `;
+    document.head.appendChild(metaPixelScript);
+    // Create the script for Purchase Event Code
+    const purchaseEventScript = document.createElement('script');
+    purchaseEventScript.async = true;
+    purchaseEventScript.innerHTML = `
+      fbq('track', 'Purchase', {
+        value: 29.99, // Replace with the actual purchase value
+        currency: 'USD', // Replace with the appropriate currency code
+        contents: [{id: 'P12345', quantity: 1}], // Replace with the actual product ID and quantity
+        content_type: 'product'
+      });
+    `;
+    document.head.appendChild(purchaseEventScript);
+    // Clean up the scripts when the component is unmounted
+    return () => {
+      document.head.removeChild(metaPixelScript);
+      document.head.removeChild(purchaseEventScript);
+    };
+  }, [])
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 `}>
       <div className='bg-white shadow-md rounded-lg p-8 max-w-md w-full'>
