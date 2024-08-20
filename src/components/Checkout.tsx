@@ -65,13 +65,6 @@ const Checkout = () => {
         const checkout = await AdyenCheckout({
           ...config,
           session,
-          paymentMethodsConfiguration: {
-            card: {
-              hasHolderName: true,
-              holderNameRequired: true,
-              billingAddressRequired: true, // Enable billing address collection
-            },
-          },
           onPaymentCompleted: (response: any) => {
             if (response.resultCode !== 'Authorised') {
               alert(`Unhandled payment result "${response.resultCode}!"`);
