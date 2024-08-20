@@ -24,21 +24,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log("-- webhook payload ------");
       console.log(notification);
 
+      const recurringDetailReference = notification.additionalData['recurring.recurringDetailReference'];
       const shopperReference = notification.additionalData['recurring.shopperReference'];
+      const paymentMethod = notification.paymentMethod;
 
-
-        const recurringDetailReference = notification.additionalData['recurring.recurringDetailReference'];
-        const paymentMethod = notification.paymentMethod;
-
-        console.log("Recurring authorized - recurringDetailReference:" + recurringDetailReference +
+      // Save recurring detail regardless of eventCode
+      if (recurringDetailReference && shopperReference) {
+        console.log("Saving recurring detail - recurringDetailReference:" + recurringDetailReference +
           " shopperReference:" + shopperReference +
           " paymentMethod:" + paymentMethod);
 
         await put(recurringDetailReference, paymentMethod, shopperReference);
+      }
+
+      // Handle different eventCodes if needed
+      if (notification.eventCode === "AUTHORISATION") {
         console.log("Payment authorized - pspReference:" + notification.pspReference +
           " eventCode:" + notification.eventCode);
-
+      } else {
         console.log("Unexpected eventCode: " + notification.eventCode);
+      }
 
       res.status(202).send(''); // Send a 202 response with an empty body
     } catch (error) {
@@ -71,9 +76,11 @@ async function put(recurringDetailReference: string, paymentMethod: any, shopper
     console.log('Recurring detail saved:', savedRecurringDetail);
 
   } catch (error) {
-
+    if (error === 11000) { // Duplicate key error code
+      console.error('Duplicate key error:', error);
+    } else {
       console.error('Error saving recurring detail:', error);
-    
+    }
   }
 }
 
