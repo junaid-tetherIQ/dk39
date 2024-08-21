@@ -77,7 +77,7 @@ const Checkout = () => {
             if (response.resultCode !== 'Authorised') {
               alert(`Unhandled payment result "${response.resultCode}!"`);
             } else {
-              // router.push('/confirmation'); // Redirect to /confirmation page
+              router.push('/confirmation'); // Redirect to /confirmation page
             }
           },
           onError: (error: any) => {
