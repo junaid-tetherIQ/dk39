@@ -33,7 +33,7 @@ export default function Home() {
         <div className="flex flex-col p-10 items-center mx-auto relative">
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
                 <div className="w-full md:w-[calc(100%-400px)] flex flex-col justify-center">
-                    <PaymentContainer />
+                    <PaymentContainer pixel={productData?.pixel} />
                 </div>
                 {productData && (
                 <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-6 overflow-y-auto">
