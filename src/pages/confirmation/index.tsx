@@ -17,7 +17,6 @@ const Page: React.FC = () => {
       // Extract the pixel ID from the URL
       const urlParams = new URLSearchParams(window.location.search);
       const pixelId = urlParams.get('pixel') || '1492043641437442'; // Default pixel ID if not provided
-      alert(pixelId)
       if (!document.querySelector('script[src="https://connect.facebook.net/en_US/fbevents.js"]')) {
         const metaPixelScript = document.createElement('script');
         metaPixelScript.async = true;
