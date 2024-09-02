@@ -12,12 +12,11 @@ const Page: React.FC = () => {
     console.log("Running");
 
     if (!window.fbPixelInitialized) {
-      window.fbPixelInitialized = true;
+      window.fbPixelInitialized = true; // Set a flag to indicate that the pixel has been initialized
 
-      // Extract the pixel ID from the URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const pixelId = urlParams.get('pixel') || '1492043641437442'; // Default pixel ID if not provided
+      // Check if the Meta Pixel script is already present
       if (!document.querySelector('script[src="https://connect.facebook.net/en_US/fbevents.js"]')) {
+        // Create and append the Meta Pixel script
         const metaPixelScript = document.createElement('script');
         metaPixelScript.async = true;
         metaPixelScript.innerHTML = `
@@ -37,12 +36,13 @@ const Page: React.FC = () => {
             s = b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t, s);
           }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${pixelId}');
+          fbq('init', '536114148983542');
           fbq('track', 'PageView');
         `;
         document.head.appendChild(metaPixelScript);
       }
 
+      // Create and append the Purchase Event script
       const purchaseEventScript = document.createElement('script');
       purchaseEventScript.async = true;
       purchaseEventScript.innerHTML = `
@@ -57,6 +57,7 @@ const Page: React.FC = () => {
     }
 
     return () => {
+      // Clean up only the purchase event script when the component is unmounted
       const purchaseEventScript = document.querySelector('script[fbq="Purchase"]');
       if (purchaseEventScript && purchaseEventScript.parentNode) {
         purchaseEventScript.parentNode.removeChild(purchaseEventScript);
