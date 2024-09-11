@@ -36,7 +36,7 @@ const Page: React.FC = () => {
             s = b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t, s);
           }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '1024152539191011 ');
+          fbq('init', '513921738008582 ');
           fbq('track', 'PageView');
         `;
         document.head.appendChild(metaPixelScript);
