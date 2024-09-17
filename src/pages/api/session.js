@@ -22,7 +22,7 @@ function runMiddleware(req, res, fn) {
 }
 
 const config = new Config({
-  apiKey: 'AQE0hmfxL4nPbhNFw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlecpLqryXYi+ZmXlAXZUqbhDBXVsNvuR83LVYjEgiTGAH-6HFhCuTsmvPYE/3r8WsfdmeuJmVDGcgL8o0RHIrQW4Q=-i1ix%s;F4}^(4N7=R7$',
+  apiKey: 'AQE0hmfxKonLbxJKw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlQRtDFN6svA/EQyB3A9ve4xDBXVsNvuR83LVYjEgiTGAH-lHUZ43x2tkVuSr3FLw/P9SOdgmH0d1k7nCB01LB1ni8=-i1iP>HLee^Hsr?r,j3)',
   environment: 'LIVE',
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
@@ -30,20 +30,20 @@ const config = new Config({
 const client = new Client({ config,liveEndpointUrlPrefix:'c8596343894f027d-LascauxEnterprises' });
 const checkout = new CheckoutAPI(client);
 
-const merchantAccount = 'LuxoriaLTD';
+const merchantAccount = 'Luxoria_luxoriasportsinnovate';
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   try {
     const response = await checkout.sessions({
-      amount: { currency: 'EUR', value: 999 }, // Initial payment of 9.99 EUR
+      amount: { currency: 'EUR', value: 3999 }, 
       countryCode: 'NL',
       merchantAccount,
       reference: randomUUID(),
       returnUrl: 'http://localhost.co',
-      shopperReference: 'unique-shopper-id', // Replace with unique ID for the customer
-      recurringProcessingModel: 'Subscription', // Set up a subscription
+      shopperReference: 'unique-shopper-id', 
+      recurringProcessingModel: 'Subscription', 
       enableRecurring: true,
       shopperInteraction: 'Ecommerce',
       allowedPaymentMethods: ['scheme'],
