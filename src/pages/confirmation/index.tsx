@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 
 declare global {
   interface Window {
@@ -8,8 +8,16 @@ declare global {
 }
 
 const Page: React.FC = () => {
+  const [transactionId, setTransactionId] = useState<string | null>(null);
   useEffect(() => {
     console.log("Running");
+    const urlParams = new URLSearchParams(window.location.search);
+    const transactionId = urlParams.get('transaction_id');
+
+    // Set the transaction_id in state
+    if (transactionId) {
+      setTransactionId(transactionId);
+    }
 
     if (!window.fbPixelInitialized) {
       window.fbPixelInitialized = true; // Set a flag to indicate that the pixel has been initialized
@@ -68,10 +76,19 @@ const Page: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h1 className="text-3xl font-extrabold text-green-600 mb-4">Félicitations !</h1>
+        <h1 className="text-3xl font-extrabold text-green-600 mb-4">Félicitations!</h1>
         <p className="text-lg text-gray-700 mb-6">
-          Votre paiement a été traité avec succès. Merci pour votre achat !
+        Votre paiement a été traité avec succès. Merci pour votre achat!
         </p>
+        {transactionId && (
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src={`https://www.mcnbv7ktrk.com/?nid=2764&transaction_id=${transactionId}`}
+            alt="tracking-pixel"
+          />
+        )}
         <div className="flex items-center justify-center">
           <svg className="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

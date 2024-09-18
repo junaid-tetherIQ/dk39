@@ -3,17 +3,21 @@ import { useRouter } from 'next/router';
 import AdyenCheckout from '@adyen/adyen-web';
 import '@adyen/adyen-web/dist/adyen.css';
 
-export const PaymentContainer = () => {
+interface CheckoutProps {
+  transaction_id?: string; // Optional prop for pixel
+} 
+
+export const PaymentContainer = ({ transaction_id }: { transaction_id?: string }) => {
   return (
     <div id="payment-page">
       <div className="container">
-        <Checkout />
+        <Checkout transaction_id={transaction_id} />
       </div>
     </div>
   );
 };
 
-const Checkout = () => {
+const Checkout: React.FC<CheckoutProps> = ({ transaction_id }) => {
   const paymentContainer = useRef<HTMLDivElement | null>(null);
   const [session, setSession] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +61,6 @@ const Checkout = () => {
     const config = {
       environment: 'LIVE',
       clientKey: 'live_4EX5N5AEHRAOJDUBUO2A6RG5LIV5EGBR', 
-      locale:'fr-FR'// Replace with your actual Adyen test client key
     };
 
     const createCheckout = async () => {
@@ -77,7 +80,7 @@ const Checkout = () => {
             if (response.resultCode !== 'Authorised') {
               alert(`Unhandled payment result "${response.resultCode}!"`);
             } else {
-              router.push('/confirmation'); // Redirect to /confirmation page
+              router.push(`/confirmation?transaction_id=${transaction_id}`);
             }
           },
           onError: (error: any) => {

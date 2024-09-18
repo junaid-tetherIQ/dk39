@@ -10,30 +10,32 @@ interface ProductData {
     image: string;
     heading: string;
     pixel: string;
+    transaction_id: string;
 }
 
 export default function Home() {
     const router = useRouter();
-    const { title, image, heading, pixel } = router.query;
+    const { title, image, heading, pixel,transaction_id } = router.query;
 
     const [productData, setProductData] = useState<ProductData | null>(null);
 
     useEffect(() => {
-        if (title || image || heading || pixel) {
+        if (title || image || heading || pixel || transaction_id) {
             setProductData({
                 title: title as string,
                 image: image as string,
                 heading: heading as string,
                 pixel: pixel as string,
+                transaction_id:transaction_id as string,
             });
         }
-    }, [title, image, heading, pixel]);
+    }, [title, image, heading, pixel,transaction_id]);
 
     return (
         <div className="flex flex-col p-10 items-center mx-auto relative">
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
                 <div className="w-full md:w-[calc(100%-400px)] flex flex-col justify-center">
-                    <PaymentContainer />
+                    <PaymentContainer transaction_id={productData?.transaction_id} />
                 </div>
                 {productData && (
                 <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-6 overflow-y-auto">
