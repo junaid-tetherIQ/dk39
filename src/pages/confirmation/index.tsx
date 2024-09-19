@@ -84,7 +84,6 @@ const Page: React.FC = () => {
           <img
             height="1"
             width="1"
-            style={{ display: 'none' }}
             src={`https://www.mcnbv7ktrk.com/?nid=2764&transaction_id=${transactionId}`}
             alt="tracking-pixel"
           />
