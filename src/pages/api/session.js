@@ -43,8 +43,6 @@ export default async function handler(req, res) {
       reference: randomUUID(),
       returnUrl: 'http://localhost.co',
       shopperReference: 'unique-shopper-id', 
-      recurringProcessingModel: 'Subscription', 
-      enableRecurring: true,
       shopperInteraction: 'Ecommerce',
       allowedPaymentMethods: ['scheme'],
     });
