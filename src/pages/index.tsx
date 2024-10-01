@@ -66,19 +66,7 @@ export default function Home() {
                 pointerEvents: loading ? 'all' : 'none', // Block interaction only during loading
             } : {}}
         >
-            {/* Overlay */}
-            <div
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: loading ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0)', // Semi-transparent background when loading
-                    zIndex: 2000, // Higher z-index to ensure it's on top
-                    pointerEvents: loading ? 'all' : 'none', // Block interaction only during loading
-                }}
-            />
+           
 
             {/* Main content */}
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
