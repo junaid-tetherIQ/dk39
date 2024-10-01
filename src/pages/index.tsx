@@ -18,7 +18,7 @@ export default function Home() {
     const { title, image, heading, pixel,transaction_id } = router.query;
 
     const [productData, setProductData] = useState<ProductData | null>(null);
-    const [loading, setLoading] = useState<boolean>(true); // Loading state to disable interaction
+    const [loading, setLoading] = useState<boolean>(true); 
 
     useEffect(() => {
         if (title || image || heading || pixel || transaction_id) {
@@ -29,7 +29,7 @@ export default function Home() {
                 pixel: pixel as string,
                 transaction_id:transaction_id as string,
             });
-            setLoading(false); // Data is loaded, enable interaction
+            setLoading(false); 
         }
     }, [title, image, heading, pixel,transaction_id]);
     useEffect(() => {
@@ -51,7 +51,6 @@ export default function Home() {
             window.removeEventListener('keydown', disableF12);
         };
     }, []);
-    
     return (
         <div className="flex flex-col p-10 items-center mx-auto relative"
         style={loading ? { pointerEvents: 'none' } : {}} 
