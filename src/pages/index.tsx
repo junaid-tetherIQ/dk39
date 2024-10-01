@@ -77,7 +77,7 @@ export default function Home() {
                     <PaymentContainer transaction_id={productData?.transaction_id} />
                 </div>
                 {productData && (
-                    <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-10 overflow-y-auto" style={{ zIndex: 1000 }}>
+                    <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-20 overflow-y-auto" style={{ zIndex: 1000 }}>
                         <h2 className="text-lg font-medium text-gray-800">Récapitulatif de la commande</h2>
                         <div className="flex flex-col md:flex-row items-center justify-between mt-4 space-y-4 md:space-y-0">
                             <div className="flex items-center">
