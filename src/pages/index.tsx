@@ -18,6 +18,7 @@ export default function Home() {
     const { title, image, heading, pixel,transaction_id } = router.query;
 
     const [productData, setProductData] = useState<ProductData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true); // Loading state to disable interaction
 
     useEffect(() => {
         if (title || image || heading || pixel || transaction_id) {
@@ -28,11 +29,46 @@ export default function Home() {
                 pixel: pixel as string,
                 transaction_id:transaction_id as string,
             });
+            setLoading(false); // Data is loaded, enable interaction
         }
     }, [title, image, heading, pixel,transaction_id]);
-
+    useEffect(() => {
+        const disableRightClick = (e: MouseEvent) => {
+            e.preventDefault();
+        };
+        
+        const disableF12 = (e: KeyboardEvent) => {
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        };
+    
+        window.addEventListener('contextmenu', disableRightClick);
+        window.addEventListener('keydown', disableF12);
+    
+        return () => {
+            window.removeEventListener('contextmenu', disableRightClick);
+            window.removeEventListener('keydown', disableF12);
+        };
+    }, []);
+    
     return (
-        <div className="flex flex-col p-10 items-center mx-auto relative">
+        <div className="flex flex-col p-10 items-center mx-auto relative"
+        style={loading ? { pointerEvents: 'none' } : {}} 
+        >
+            
+            <div
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: loading ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0)', // Semi-transparent background when loading
+                    zIndex: 1000,
+                    pointerEvents: loading ? 'all' : 'none', // Block interaction only during loading
+                }}
+            />
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
                 <div className="w-full md:w-[calc(100%-400px)] flex flex-col justify-center">
                     <PaymentContainer transaction_id={productData?.transaction_id} />
@@ -66,7 +102,7 @@ export default function Home() {
                         </div>
                         <div className="flex justify-between mt-2 text-sm font-medium text-gray-800">
                             <p>Expédition</p>
-                            <p className="text-indigo-600">Free</p>
+                            <p className="text-indigo-600">Gratuite</p>
                         </div>
                     </div>
                 </div>
