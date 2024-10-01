@@ -63,9 +63,9 @@ export default function Home() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundColor: loading ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0)', 
+                    backgroundColor: loading ? 'rgba(0, 0, 0, 0)' : 'rgba(0, 0, 0, 0)', // Semi-transparent background when loading
                     zIndex: 1000,
-                    pointerEvents: loading ? 'all' : 'none', 
+                    pointerEvents: loading ? 'all' : 'none', // Block interaction only during loading
                 }}
             />
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
@@ -73,7 +73,7 @@ export default function Home() {
                     <PaymentContainer transaction_id={productData?.transaction_id} />
                 </div>
                 {productData && (
-                <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-6 overflow-y-auto">
+                <div className="w-full md:w-[380px] md:fixed md:right-0 top-0 md:h-full bg-white shadow-lg p-10 overflow-y-auto">
                     <h2 className="text-lg font-medium text-gray-800">Récapitulatif de la commande</h2>
                     <div className="flex flex-col md:flex-row items-center justify-between mt-4 space-y-4 md:space-y-0">
                         <div className="flex items-center">
