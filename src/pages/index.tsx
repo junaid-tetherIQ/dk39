@@ -41,12 +41,14 @@ export default function Home() {
                         width: '100%',
                         height: '100%',
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        zIndex: 1000,
+                        zIndex: 20000,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}
                 >
+                                </div>
+
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
                 <div className="w-full md:w-[calc(100%-400px)] flex flex-col justify-center">
                     <PaymentContainer transaction_id={productData?.transaction_id} />
@@ -85,7 +87,6 @@ export default function Home() {
                     </div>
                 </div>
             )}
-            </div>
             </div>
         </div>
     );
