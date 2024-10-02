@@ -5,7 +5,7 @@ import Checkoutx from '@adyen/adyen-web';
 import '@adyen/adyen-web/dist/adyen.css';
 
 interface CheckoutProps {
-  transaction_id?: string; // Optional prop for pixel
+  transaction_id?: string; 
 } 
 
 export const PaymentContainer = ({ transaction_id }: { transaction_id?: string }) => {
