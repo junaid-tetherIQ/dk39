@@ -19,7 +19,6 @@ export default function Home() {
     const { title, image, heading, pixel, transaction_id } = router.query;
 
     const [productData, setProductData] = useState<ProductData | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         if (title || image || heading || pixel || transaction_id) {
@@ -30,7 +29,6 @@ export default function Home() {
                 pixel: pixel as string,
                 transaction_id: transaction_id as string
             });
-            setLoading(false);
         }
     }, [title, image, heading, pixel, transaction_id]);
 
@@ -52,7 +50,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-col p-10 items-center mx-auto relative">
-            {loading && (
+
                 <div
                     style={{
                         position: 'fixed',
@@ -69,7 +67,7 @@ export default function Home() {
                 >
                     <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-500"></div>
                 </div>
-            )}
+
             <div className={`flex justify-center md:justify-between p-3 w-full ${inter.className} flex-wrap`}>
                 <div className="w-full md:w-[calc(100%-400px)] flex flex-col justify-center">
                     <PaymentContainer transaction_id={productData?.transaction_id} />
