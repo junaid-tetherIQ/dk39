@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import AdyenCheckout from '@adyen/adyen-web';
-import Checkoutx from '@adyen/adyen-web';
 import '@adyen/adyen-web/dist/adyen.css';
 
 interface CheckoutProps {
-  transaction_id?: string; 
+  transaction_id?: string; // Optional prop for pixel
 } 
 
 export const PaymentContainer = ({ transaction_id }: { transaction_id?: string }) => {
@@ -67,7 +66,7 @@ const Checkout: React.FC<CheckoutProps> = ({ transaction_id }) => {
 
     const createCheckout = async () => {
       try {
-        const checkout = await Checkoutx({
+        const checkout = await AdyenCheckout({
           ...config,
           session,
           paymentMethodsConfiguration: {
