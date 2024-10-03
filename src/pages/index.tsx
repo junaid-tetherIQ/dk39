@@ -66,7 +66,7 @@ export default function Home() {
                         </div>
                         <div className="flex justify-between mt-2 text-sm font-medium text-gray-800">
                             <p>Expédition</p>
-                            <p className="text-indigo-600">Free</p>
+                            <p className="text-indigo-600">Gratuite</p>
                         </div>
                     </div>
                 </div>
