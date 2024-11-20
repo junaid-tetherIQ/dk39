@@ -22,7 +22,7 @@ function runMiddleware(req, res, fn) {
 }
 
 const config = new Config({
-  apiKey: 'AQE0hmfxKonLbxJKw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlQRtDFN6svA/EQyB3A9ve4xDBXVsNvuR83LVYjEgiTGAH-lHUZ43x2tkVuSr3FLw/P9SOdgmH0d1k7nCB01LB1ni8=-i1iP>HLee^Hsr?r,j3)',
+  apiKey: 'AQE0hmfxKonLbxJKw0m/n3Q5qf3VZIpeDpJfQEBY0n25jnRCjcJlQRtDFN6svA/EQyB3A9ve4xDBXVsNvuR83LVYjEgiTGAH-YcHm2+3fevryZh2Gg+gy5NA5qII+Zf0to2y0edkKamk=-i1i<q*pNBtat:j3hcYU',
   environment: 'LIVE',
   checkoutEndpoint: 'https://checkout-live.adyen.com/v68',
 });
