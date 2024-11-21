@@ -56,13 +56,13 @@ export default function Checkout() {
                                 </div>
                             </div>
                         </div>
-                        <p className="text-base font-medium text-indigo-600 md:text-right">€29.99</p>
+                        <p className="text-base font-medium text-indigo-600 md:text-right">€39.99</p>
                     </div>
 
                     <div className="border-t mt-6 pt-4">
                         <div className="flex justify-between text-sm font-medium text-gray-800">
                             <p>Sous-total/unité</p>
-                            <p>€29.99</p>
+                            <p>€39.99</p>
                         </div>
                         <div className="flex justify-between mt-2 text-sm font-medium text-gray-800">
                             <p>Expédition</p>

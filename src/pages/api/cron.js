@@ -70,7 +70,7 @@ export default async function handler(req, res) {
         // After 3 days: one-time 24.99 EUR payment
         amount = 2499;
       } else if (timeDifference >= 14 && (timeDifference - 14) % 14 === 0) {
-        // Every 14 days after the initial 14 days: 29.99 EUR payment
+        // Every 14 days after the initial 14 days: 39.99 EUR payment
         amount = 2499;
       }
 
