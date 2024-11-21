@@ -14,6 +14,29 @@ interface ProductData {
 }
 
 export default function Home() {
+    useEffect(() => {
+        // Disable Right-Click
+        const disableRightClick = (e:any) => {
+          e.preventDefault();
+        };
+        // Disable F12 and Inspect Element Shortcuts
+        const disableDevTools = (e:any) => {
+          if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+            e.preventDefault();
+          }
+        };
+    
+        // Add Event Listeners
+        document.addEventListener("contextmenu", disableRightClick);
+        document.addEventListener("keydown", disableDevTools);
+    
+        // Cleanup Listeners
+        return () => {
+          document.removeEventListener("contextmenu", disableRightClick);
+          document.removeEventListener("keydown", disableDevTools);
+        };
+      }, []);
+    
     const router = useRouter();
     const { title, image, heading, pixel,transaction_id } = router.query;
 
