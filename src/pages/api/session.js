@@ -37,14 +37,12 @@ export default async function handler(req, res) {
 
   try {
     const response = await checkout.sessions({
-      amount: { currency: 'EUR', value: 9 }, 
+      amount: { currency: 'EUR', value: 3999 }, 
       countryCode: 'NL',
       merchantAccount,
       reference: randomUUID(),
       returnUrl: 'http://localhost.co',
       shopperReference: 'unique-shopper-id', 
-      recurringProcessingModel: 'Subscription',
-      enableRecurring: true,
       shopperInteraction: 'Ecommerce',
       allowedPaymentMethods: ['scheme'],
     });

@@ -16,8 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
           // Create a new array for updated class names
           const newClasses = originalClasses.map((className) => {
-            // Replace any instance of 'adyen-checkout' with 'tetheriq' 
-            return className.replace(/adyen-checkout/g, 'tetheriq');
+            // Replace any instance of 'adyen-checkout' with 'offers' 
+            return className.replace(/adyen-checkout/g, 'offers');
           });
 
           // Remove all original classes and add updated ones
@@ -32,8 +32,8 @@ export default function App({ Component, pageProps }: AppProps) {
           // Get the original ID
           const originalId = element.id;
 
-          // Replace 'adyen-checkout' with 'tetheriq' in the ID
-          const newId = originalId.replace(/adyen-checkout/g, 'tetheriq');
+          // Replace 'adyen-checkout' with 'offers' in the ID
+          const newId = originalId.replace(/adyen-checkout/g, 'offers');
 
           // Update the ID of the element
           element.id = newId;
