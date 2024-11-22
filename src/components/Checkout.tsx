@@ -61,7 +61,7 @@ const Checkout: React.FC<CheckoutProps> = ({ transaction_id }) => {
     const config = {
       environment: 'LIVE',
       clientKey: 'live_4EX5N5AEHRAOJDUBUO2A6RG5LIV5EGBR', 
-       locale:'dk-DK'
+       locale:'da-DK'
     };
 
     const createCheckout = async () => {
